@@ -3,7 +3,7 @@ package com.jet.core.db;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PojoCreator {
+public class EntityCreator {
 
     private static final String ONE_LINE = "\n";
     private static final String PACKAGE_CLASS_TEMPLATE  = """
@@ -41,6 +41,8 @@ public class PojoCreator {
         String classContent = generateJPA(tableName, columns);
         return String.format(PACKAGE_CLASS_TEMPLATE, pkgName, classContent);
     }
+
+
 
     private static String generateJPA(String tableName, List<ColumnType> columns) {
     List<String> columnsInfo  =  new ArrayList<>();

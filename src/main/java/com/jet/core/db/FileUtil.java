@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 public class FileUtil {
     public static final String JAVA_EXTENSION = ".java";
 
-    public static void createJavaPojoFile(String className, String content, String dir){
+    public static void createJavaFile(String className, String content, String dir){
         try {
             File dirFile = new File(dir);
             if(!dirFile.exists()){
@@ -22,4 +22,5 @@ public class FileUtil {
             throw new RuntimeException(e);
         }
     }
+
 }

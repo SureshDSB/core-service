@@ -13,12 +13,14 @@ public class ServiceCreator {
     import %s;
     import %s;
     import lombok.RequiredArgsConstructor;
+    import org.springframework.stereotype.Service;
     
     %s
     
     """;
 
  private static final String SERVICE_TEMPLATE  = """
+    @Service
     @RequiredArgsConstructor
     public class %s {
     

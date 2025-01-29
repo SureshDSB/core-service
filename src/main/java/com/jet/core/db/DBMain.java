@@ -12,6 +12,11 @@ public class DBMain {
         CsvReader csvReader = new CsvReader();
         Map<String, List<DBInfo>> map = csvReader.read("Trade", fileName);
         Creator.create(map, "com.jet.core","omr");
+
+
+        String fileNameSt = "student.csv";
+        Map<String, List<DBInfo>> mapSt = csvReader.read("Student", fileNameSt);
+        Creator.create(mapSt, "com.jet.core","student");
     }
 
 

@@ -13,6 +13,8 @@ import static com.jet.core.db.ServiceCreator.generateService;
 public class Creator {
 
 
+    public static final String FULL_PKG_PATH = "/Users/sureshdo/ARKA/CORE/src/main/java/com/jet/core/";
+
     public static void create(Map<String, List<DBInfo>> map, String basePackage, String baseService) {
 
 
@@ -22,23 +24,24 @@ public class Creator {
             for(DBInfo dbInfo : entry.getValue()){
                 columns.add(new ColumnType(dbInfo.getColName(), dbInfo.getType()));
             }
+
             String entityPkgName = basePackage+DOT+baseService+DOT+"entity";
             String entityClassName = getClassName(tableName);
             String content = generatePojoJPA(tableName,  entityPkgName, columns);
-            String packageName = "/Users/sureshdo/ARKA/CORE/src/main/java/com/jet/core/omr/entity/";
+            String packageName = FULL_PKG_PATH +baseService+"/entity/";
             FileUtil.createJavaFile(entityClassName, content, packageName);
 
             String repoPkgName = basePackage+DOT+baseService+DOT+"repo";
             String repoClassName = getClassName(tableName)+"Repo";
             String repoContent = generateInterfaceRepo(repoClassName, entityClassName, entityPkgName, repoPkgName);
-            String repoPackageName = "/Users/sureshdo/ARKA/CORE/src/main/java/com/jet/core/omr/repo/";
+            String repoPackageName = FULL_PKG_PATH+baseService+"/repo/";
             FileUtil.createJavaFile(repoClassName, repoContent, repoPackageName);
 
 
             String serPkgName = basePackage+DOT+baseService+DOT+"service";
             String serviceClassName = getClassName(tableName)+"Service";
             String serviceContent  = generateService(serviceClassName, repoClassName, entityClassName,entityPkgName,repoPkgName,serPkgName);
-            String servicePackageName = "/Users/sureshdo/ARKA/CORE/src/main/java/com/jet/core/omr/service/";
+            String servicePackageName = FULL_PKG_PATH+baseService+"/service/";
             FileUtil.createJavaFile(serviceClassName, serviceContent, servicePackageName);
 
         }

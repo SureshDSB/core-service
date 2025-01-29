@@ -1,0 +1,4 @@
+ColName,Type,NType,Size,Key
+ID,Long,NN,20,PK
+STUDENT_NAME,String,N,50,
+AGE,Integer,N,20,

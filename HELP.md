@@ -1,7 +1,3 @@
-# core-service
-core service
-
-
 # Getting Started
 
 ### Reference Documentation

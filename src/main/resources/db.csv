@@ -1,0 +1,4 @@
+ColName,Type,NType,Size,Key
+ID,Integer,NN,20,PK
+TRADE_ID,String,N,50,
+WORKFLOW_ID,Integer,N,20,

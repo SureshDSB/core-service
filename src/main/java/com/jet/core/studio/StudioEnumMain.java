@@ -3,6 +3,8 @@ package com.jet.core.studio;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jet.core.District;
+import com.jet.core.State;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -10,12 +12,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.toList;
 
-public class StudioMain {
+public class StudioEnumMain {
     public static void main(String[] args) throws IOException {
 
         String fileName = "studio.csv";
@@ -49,6 +52,9 @@ public class StudioMain {
         cityInfos1.sort(comparator);
         System.out.println("Sorted List=");
         System.out.println(cityInfos1);
+        Map<State, Map<District, Map<String, List<String>>>> eMap = createGroupEnum(cityInfos1);
+        System.out.println("eMap = ");
+        System.out.println(eMap);
     }
 
     private static Map<String, Map<String, Map<String, List<String>>>> createGroup(List<CityInfo> cityInfos) {
@@ -58,6 +64,24 @@ public class StudioMain {
                                 Collectors.groupingBy(CityInfo::getCity,
                                         Collectors.mapping(CityInfo::getStudio, toList())
                                         ))));
+    }
+
+    private static Map<State , List<CityInfo>> createGroupEnumC(List<CityInfo> cityInfos) {
+        final Function<CityInfo, State> toState = x->State.valueOf(x.getState());
+        return cityInfos.stream().collect(Collectors.groupingBy(toState));
+
+    }
+
+    private static Map<State, Map<District, Map<String, List<String>>>> createGroupEnum(List<CityInfo> cityInfos) {
+        final Function<CityInfo, State> toState = x->State.valueOf(x.getState());
+        final Function<CityInfo, District> toDistrict = x-> District.valueOf(x.getDistrict());
+        return cityInfos.stream().collect(
+                Collectors.groupingBy(toState,
+                        Collectors.groupingBy(toDistrict,
+                                Collectors.groupingBy(CityInfo::getCity,
+                                        Collectors.mapping(CityInfo::getStudio, toList())
+                                ))));
+
     }
 
  private static Map<String, Map<String, Map<String, Long>>> createGroupCount(List<CityInfo> cityInfos) {
